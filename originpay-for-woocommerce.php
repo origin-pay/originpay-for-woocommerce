@@ -82,3 +82,18 @@ function originpay_enqueue_checkout_assets() {
     }
 }
 add_action( 'wp_enqueue_scripts', 'originpay_enqueue_checkout_assets' );
+
+function originpay_rest_prepare_payment_gateway( $response, $gateway ) {
+    if ( is_object( $gateway ) && 'originpay' === $gateway->id ) {
+        $logo_url = plugins_url( 'assets/images/woo_logo.svg', ORIGINPAY_PLUGIN_FILE );
+        $data     = $response->get_data();
+        $data['icon']      = $logo_url;
+        $data['icon_url']  = $logo_url;
+        $data['image_url'] = $logo_url;
+        $data['logo_url']  = $logo_url;
+        $data['logo']      = $logo_url;
+        $response->set_data( $data );
+    }
+    return $response;
+}
+add_filter( 'woocommerce_rest_prepare_payment_gateway', 'originpay_rest_prepare_payment_gateway', 10, 2 );

@@ -3,8 +3,8 @@ defined( 'ABSPATH' ) || exit;
 
 class WC_Originpay_API {
 
-    public static function get_base_url( $payment_mode = 'test' ) {
-        if ( 'live' === $payment_mode ) {
+    public static function get_base_url( $payment_mode = 'live' ) {
+        if ( 'test' === $payment_mode ) {
             $url = 'https://api-uat.originpay.in';
         } else {
             $url = 'https://api.originpay.in';
@@ -23,7 +23,7 @@ class WC_Originpay_API {
         );
     }
 
-    public static function initiate_payment( $body_data, $credentials, $payment_mode = 'test' ) {
+    public static function initiate_payment( $body_data, $credentials, $payment_mode = 'live' ) {
         $endpoint = self::get_base_url( $payment_mode ) . '/v2/checkout/pay';
         $headers  = self::get_headers(
             $credentials['public_key'],
@@ -56,7 +56,6 @@ class WC_Originpay_API {
             return array(
                 'success' => false,
                 'message' => esc_html__( 'Invalid response received from Originpay API.', 'originpay-for-woocommerce' ),
-                'raw'     => $body,
             );
         }
 
@@ -64,7 +63,7 @@ class WC_Originpay_API {
         return $data;
     }
 
-    public static function get_order_status( $merchant_order_id, $amount, $credentials, $payment_mode = 'test' ) {
+    public static function get_order_status( $merchant_order_id, $amount, $credentials, $payment_mode = 'live' ) {
         $endpoint = self::get_base_url( $payment_mode ) . '/v2/order/command';
         $headers  = self::get_headers(
             $credentials['public_key'],
@@ -103,7 +102,6 @@ class WC_Originpay_API {
             return array(
                 'success' => false,
                 'message' => esc_html__( 'Invalid status inquiry response from Originpay API.', 'originpay-for-woocommerce' ),
-                'raw'     => $body,
             );
         }
 

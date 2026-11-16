@@ -13,7 +13,7 @@ class WC_Gateway_Originpay extends WC_Payment_Gateway {
         $this->has_fields         = false;
         $this->method_title       = esc_html__( 'Originpay', 'originpay-for-woocommerce' );
         $this->method_description = esc_html__( 'Accept payments via UPI, Credit/Debit Cards, NetBanking, and Wallets using Originpay.', 'originpay-for-woocommerce' );
-        $this->icon               = plugins_url( 'assets/images/logo.svg', ORIGINPAY_PLUGIN_FILE );
+        $this->icon               = plugins_url( 'assets/images/woo_logo.svg', ORIGINPAY_PLUGIN_FILE );
         $this->supports           = array( 'products' );
 
         $this->init_form_fields();
@@ -30,6 +30,12 @@ class WC_Gateway_Originpay extends WC_Payment_Gateway {
         add_action( 'woocommerce_api_wc_gateway_originpay', array( $this, 'handle_callback' ) );
         add_action( 'woocommerce_order_action_originpay_check_status', array( $this, 'admin_check_payment_status' ) );
         add_filter( 'woocommerce_order_actions', array( $this, 'add_order_actions' ), 10, 2 );
+    }
+
+    public function get_icon() {
+        $icon_url = plugins_url( 'assets/images/logo.svg', ORIGINPAY_PLUGIN_FILE );
+        $icon     = '<img src="' . esc_url( $icon_url ) . '" alt="' . esc_attr( $this->get_title() ) . '" class="originpay-gateway-icon" style="max-height: 24px; vertical-align: middle; margin-left: 10px;" />';
+        return apply_filters( 'woocommerce_gateway_icon', $icon, $this->id );
     }
 
     public function init_form_fields() {
@@ -56,7 +62,7 @@ class WC_Gateway_Originpay extends WC_Payment_Gateway {
             'payment_mode' => array(
                 'title'       => esc_html__( 'Payment Mode', 'originpay-for-woocommerce' ),
                 'type'        => 'select',
-                'description' => esc_html__( 'Select payment environment. Live (https://api-uat.originpay.in) or Test (https://api.originpay.in).', 'originpay-for-woocommerce' ),
+                'description' => esc_html__( 'Select payment environment. Live (https://api.originpay.in) or Test (https://api-uat.originpay.in).', 'originpay-for-woocommerce' ),
                 'default'     => 'live',
                 'options'     => array(
                     'live' => esc_html__( 'Live', 'originpay-for-woocommerce' ),

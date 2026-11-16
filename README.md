@@ -22,8 +22,8 @@ Originpay Payment Gateway plugin for WooCommerce enables merchants to accept onl
 
 | Environment | Base URL | Checkout Endpoint | Order Status Endpoint |
 |---|---|---|---|
-| **Live** | `https://api-uat.originpay.in` | `/v2/checkout/pay` | `/v2/order/command` |
-| **Test** | `https://api.originpay.in` | `/v2/checkout/pay` | `/v2/order/command` |
+| **Live** | `https://api.originpay.in` | `/v2/checkout/pay` | `/v2/order/command` |
+| **Test** | `https://api-uat.originpay.in` | `/v2/checkout/pay` | `/v2/order/command` |
 
 ## Installation
 
