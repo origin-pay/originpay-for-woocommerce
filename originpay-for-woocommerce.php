@@ -4,7 +4,7 @@
  * Plugin URI: https://www.originpay.in
  * Description: Accept payments via UPI, Credit/Debit Cards, NetBanking, and Wallets using Originpay payment gateway.
  * Version: 1.0.0
- * Author: Speedx Innovations Private Limited.
+ * Author: Originpay.
  * Author URI: https://www.originpay.in
  * Text Domain: originpay-for-woocommerce
  * Domain Path: /languages
